@@ -1,22 +1,26 @@
 import { StyleSheet } from "react-native";
-import EditScreenInfo from "@/components/EditScreenInfo";
-import { Text, View } from "@/components/Themed";
 import WebView from "react-native-webview";
+import { useEffect, useRef } from "react";
 
 export default function TabOneScreen() {
-  // JS code to remove the tab bar
-  const jsCode = `
-    document.addEventListener('DOMContentLoaded', function() {
-      var navSection = document.getElementById('nav');
-      if (navSection) {
-        navSection.style.display = 'none';
-      }
-      document.getElementBy
-      // Change the body background color for visual feedback
-      document.getElementById('#transparency').style.backgroundColor = 'pink';
-    });
-    true;
-  `;
+  const webRef = useRef<WebView>(null);
+  const hideElementsJS = `
+  (function() {
+    // navbar
+    // document.getElementById('8b637a10-ad27-11eb-9b3f-2f906f5af45e').style.display = 'none';
+      document.getElementsByClassName('span12 p20')[1].style.display = 'none';
+      document.getElementsByClassName('footer-wrapper')[0].style.display = 'none';
+      document.getElementsByClassName('toolbar-wrapper')[0].style.display = 'none';
+      true; 
+    })()`;
+
+  useEffect(() => {
+    if (webRef.current) {
+      webRef.current.injectJavaScript(hideElementsJS);
+      console.log("Injected JS");
+    }
+  }, [webRef]);
+
   return (
     <WebView
       injectedJavaScriptBeforeContentLoaded={`
@@ -26,8 +30,15 @@ export default function TabOneScreen() {
       };
       true;
     `}
-      injectedJavaScript={jsCode}
+      cacheEnabled={false}
       javaScriptEnabled={true}
+      onLoadEnd={() => {
+        if (webRef.current) {
+          console.log("on load event");
+          webRef.current.injectJavaScript(hideElementsJS);
+        }
+      }}
+      ref={webRef}
       source={{ uri: "https://salonaubrey.com/" }}
       style={styles.container}
     />
