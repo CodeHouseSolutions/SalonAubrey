@@ -1,9 +1,12 @@
 import { StyleSheet } from "react-native";
+import EditScreenInfo from "@/components/EditScreenInfo";
+import { Text, View } from "@/components/Themed";
 import WebView from "react-native-webview";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 
-export default function HomeScreen() {
+export default function ProductsScreen() {
   const webRef = useRef<WebView>(null);
+
   const hideElementsJS = `
   (function() {
     // Function to hide elements
@@ -30,23 +33,9 @@ export default function HomeScreen() {
     hideElements();
   })()
   `;
-
-  useEffect(() => {
-    if (webRef.current) {
-      webRef.current.injectJavaScript(hideElementsJS);
-      console.log("Injected JS");
-    }
-  }, [webRef]);
-
   return (
     <WebView
-      injectedJavaScriptBeforeContentLoaded={`
-      window.onerror = function(message, sourcefile, lineno, colno, error) {
-        alert("Message: " + message + " - Source: " + sourcefile + " Line: " + lineno + ":" + colno);
-        return true;
-      };
-      true;
-    `}
+      cacheEnabled={false}
       onLoadEnd={() => {
         if (webRef.current) {
           console.log("on load event");
@@ -54,7 +43,7 @@ export default function HomeScreen() {
         }
       }}
       ref={webRef}
-      source={{ uri: "https://salonaubrey.com/" }}
+      source={{ uri: "https://www.salonaubrey.com/hair-care-products" }}
       style={styles.container}
     />
   );

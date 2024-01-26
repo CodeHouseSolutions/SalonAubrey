@@ -1,9 +1,10 @@
 import { StyleSheet } from "react-native";
 import WebView from "react-native-webview";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 
-export default function HomeScreen() {
+export default function OurCommunityScreen() {
   const webRef = useRef<WebView>(null);
+
   const hideElementsJS = `
   (function() {
     // Function to hide elements
@@ -31,22 +32,9 @@ export default function HomeScreen() {
   })()
   `;
 
-  useEffect(() => {
-    if (webRef.current) {
-      webRef.current.injectJavaScript(hideElementsJS);
-      console.log("Injected JS");
-    }
-  }, [webRef]);
-
   return (
     <WebView
-      injectedJavaScriptBeforeContentLoaded={`
-      window.onerror = function(message, sourcefile, lineno, colno, error) {
-        alert("Message: " + message + " - Source: " + sourcefile + " Line: " + lineno + ":" + colno);
-        return true;
-      };
-      true;
-    `}
+      cacheEnabled={false}
       onLoadEnd={() => {
         if (webRef.current) {
           console.log("on load event");
@@ -54,7 +42,7 @@ export default function HomeScreen() {
         }
       }}
       ref={webRef}
-      source={{ uri: "https://salonaubrey.com/" }}
+      source={{ uri: "https://www.salonaubrey.com/#mtNUCP" }}
       style={styles.container}
     />
   );

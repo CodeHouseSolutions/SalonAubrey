@@ -1,24 +1,30 @@
 import { StyleSheet } from "react-native";
 import WebView from "react-native-webview";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
+import OurCommunityScreen from "@/components/OurCommunityScreen";
+import OurIdentityScreen from "@/components/OurIdentityScreen";
+import OurMissionScreen from "@/components/OurMissionScreen";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 
-export default function HomeScreen() {
+const Tab = createMaterialTopTabNavigator();
+
+export default function AboutScreen() {
   const webRef = useRef<WebView>(null);
   const hideElementsJS = `
   (function() {
     // Function to hide elements
     function hideElements() {
-      var headerBanner = document.getElementsByClassName('w-cell header-banner-wrapper row')[0];
+      var header = document.getElementsByClassName('w-block-background')[0];
       var bookNowBanner = document.getElementById('WIUqfk');
       var footer = document.getElementById('RSyeth');
-      
+
       // Check if elements exist and hide them
-      if(headerBanner) headerBanner.style.display = 'none';
-      if(bookNowBanner) bookNowBanner.style.display = 'none';
+      if(header) header.style.display = 'none';
+      // if(bookNowBanner) bookNowBanner.style.display = 'none';
       if(footer) footer.style.display = 'none';
       
       // If all elements are found and hidden, clear the interval
-      if(headerBanner && bookNowBanner && footer) {
+      if(header && bookNowBanner && footer) {
         clearInterval(checkInterval);
       }
     }
@@ -31,33 +37,30 @@ export default function HomeScreen() {
   })()
   `;
 
-  useEffect(() => {
-    if (webRef.current) {
-      webRef.current.injectJavaScript(hideElementsJS);
-      console.log("Injected JS");
-    }
-  }, [webRef]);
-
   return (
     <WebView
-      injectedJavaScriptBeforeContentLoaded={`
-      window.onerror = function(message, sourcefile, lineno, colno, error) {
-        alert("Message: " + message + " - Source: " + sourcefile + " Line: " + lineno + ":" + colno);
-        return true;
-      };
-      true;
-    `}
+      cacheEnabled={false}
       onLoadEnd={() => {
         if (webRef.current) {
-          console.log("on load event");
+          console.log("on load event - about");
           webRef.current.injectJavaScript(hideElementsJS);
         }
       }}
       ref={webRef}
-      source={{ uri: "https://salonaubrey.com/" }}
+      source={{ uri: "https://www.salonaubrey.com/#mtNUCP" }}
       style={styles.container}
     />
   );
+
+  function MyTabs() {
+    return (
+      <Tab.Navigator>
+        <Tab.Screen name="Our Mission" component={OurMissionScreen} />
+        <Tab.Screen name="Our Identity" component={OurIdentityScreen} />
+        <Tab.Screen name="Our Community" component={OurCommunityScreen} />
+      </Tab.Navigator>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -76,3 +79,6 @@ const styles = StyleSheet.create({
     width: "80%",
   },
 });
+function createMaterialTopTabNavigator() {
+  throw new Error("Function not implemented.");
+}
