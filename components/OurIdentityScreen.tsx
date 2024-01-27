@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 import WebView from "react-native-webview";
 import { useRef } from "react";
 
-export default function OurCommunityScreen() {
+export default function OurIdentityScreen() {
   const webRef = useRef<WebView>(null);
 
   const hideElementsJS = `

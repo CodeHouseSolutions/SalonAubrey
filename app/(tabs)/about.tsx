@@ -15,7 +15,7 @@ export default function AboutScreen() {
         tabBarIndicatorStyle: {
           backgroundColor: "tan",
           height: "100%",
-          borderRadius: 9,
+          borderRadius: 14,
           borderWidth: 2,
         },
       }}

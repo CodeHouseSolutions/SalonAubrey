@@ -32,7 +32,6 @@ export default function OurCommunityScreen() {
 
   return (
     <WebView
-      cacheEnabled={false}
       onLoadEnd={() => {
         if (webRef.current) {
           console.log("on load event - our mission");
