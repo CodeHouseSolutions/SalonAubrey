@@ -49,7 +49,7 @@ export default function HomeScreen() {
     `}
       onLoadEnd={() => {
         if (webRef.current) {
-          console.log("on load event");
+          console.log("on load event - home");
           webRef.current.injectJavaScript(hideElementsJS);
         }
       }}

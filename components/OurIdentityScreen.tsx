@@ -10,16 +10,14 @@ export default function OurCommunityScreen() {
     // Function to hide elements
     function hideElements() {
       var headerBanner = document.getElementsByClassName('w-cell header-banner-wrapper row')[0];
-      var bookNowBanner = document.getElementById('WIUqfk');
       var footer = document.getElementById('RSyeth');
       
       // Check if elements exist and hide them
       if(headerBanner) headerBanner.style.display = 'none';
-      if(bookNowBanner) bookNowBanner.style.display = 'none';
       if(footer) footer.style.display = 'none';
       
       // If all elements are found and hidden, clear the interval
-      if(headerBanner && bookNowBanner && footer) {
+      if(headerBanner && footer) {
         clearInterval(checkInterval);
       }
     }
@@ -37,12 +35,12 @@ export default function OurCommunityScreen() {
       cacheEnabled={false}
       onLoadEnd={() => {
         if (webRef.current) {
-          console.log("on load event");
+          console.log("on load event - our identity");
           webRef.current.injectJavaScript(hideElementsJS);
         }
       }}
       ref={webRef}
-      source={{ uri: "https://www.salonaubrey.com/our-identity" }}
+      source={{ uri: "https://www.salonaubrey.com/about-salon-aubrey" }}
       style={styles.container}
     />
   );

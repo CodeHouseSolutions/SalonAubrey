@@ -1,6 +1,5 @@
 import { StyleSheet } from "react-native";
 import EditScreenInfo from "@/components/EditScreenInfo";
-import { Text, View } from "@/components/Themed";
 import WebView from "react-native-webview";
 import { useRef } from "react";
 
@@ -39,7 +38,7 @@ export default function ServicesScreen() {
       cacheEnabled={false}
       onLoadEnd={() => {
         if (webRef.current) {
-          console.log("on load event");
+          console.log("on load event - services");
           webRef.current.injectJavaScript(hideElementsJS);
         }
       }}

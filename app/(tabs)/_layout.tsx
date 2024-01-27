@@ -5,6 +5,7 @@ import { Pressable } from "react-native";
 import Colors from "@/constants/Colors";
 import { useColorScheme } from "@/components/useColorScheme";
 import { useClientOnlyValue } from "@/components/useClientOnlyValue";
+import { FontAwesome5 } from "@expo/vector-icons";
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: {
@@ -30,7 +31,9 @@ export default function TabLayout() {
         name="index"
         options={{
           title: "Home",
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <FontAwesome5 name="home" size={24} color={color} />
+          ),
           headerRight: () => (
             <Link href="/modal" asChild>
               <Pressable>
@@ -51,21 +54,42 @@ export default function TabLayout() {
         name="services"
         options={{
           title: "Services",
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <FontAwesome5
+              name="calendar-alt"
+              size={28}
+              style={{ marginBottom: -3 }}
+              color={color}
+            />
+          ),
         }}
       />
       <Tabs.Screen
         name="products"
         options={{
           title: "Products",
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <FontAwesome5
+              name="store-alt"
+              size={28}
+              style={{ marginBottom: -3 }}
+              color={color}
+            />
+          ),
         }}
       />
       <Tabs.Screen
         name="about"
         options={{
           title: "About Us",
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <FontAwesome5
+              name="info-circle"
+              size={28}
+              style={{ marginBottom: -3 }}
+              color={color}
+            />
+          ),
         }}
       />
     </Tabs>
